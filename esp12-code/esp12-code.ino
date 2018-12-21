@@ -36,23 +36,23 @@ unsigned long timer1m = 0;
 
 void reconnect() 
 {
-	Serial.print("Attempting MQTT connection...");
+	//Serial.print("Attempting MQTT connection...");
 	if (client.connect(controllerName, mqttLogin, mqttPasswd))
 	{
-		Serial.println("connected");
+		//Serial.println("connected");
 		
 		client.subscribe("home/centralHeating/pump");
 		client.subscribe("home/centralHeating/pump/mode");
 		
-		digitalWrite(D10, HIGH);
+		digitalWrite(1, HIGH);
 	} 
 	else
 	{
-		Serial.print("failed, rc=");
-		Serial.print(client.state());
-		Serial.println(" try again in 1 seconds");
+		//Serial.print("failed, rc=");
+		//Serial.print(client.state());
+		//Serial.println(" try again in 1 seconds");
 		delay(1000);
-		digitalWrite(D10, LOW);
+		digitalWrite(1, LOW);
 	}
 }
 
@@ -94,39 +94,38 @@ void setup()
 	pinMode(3, OUTPUT);	//wifi
 	pinMode(1, OUTPUT);	//mqtt
 	
-	Serial.begin(115200);
-	Serial.println("Booting");
-	Serial.println("Connecting to WiFi...");
+	pinMode(relay, OUTPUT);
+	
+	//Serial.begin(115200);
+	//Serial.println("Booting");
+	//Serial.println("Connecting to WiFi...");
 	
 	WIFIsetup();
 	
-	digitalWrite(D9, HIGH);
+	//Serial.println("WiFi Ready");
+	//Serial.print("IP address: ");
+	//Serial.println(WiFi.localIP());
 	
-	Serial.println("WiFi Ready");
-	Serial.print("IP address: ");
-	Serial.println(WiFi.localIP());
-	
-	Serial.println("OTA setup...");
+	//Serial.println("OTA setup...");
 	OTAsetup();
-	Serial.println("OTA ready");
+	//Serial.println("OTA ready");
 
-	Serial.println("MQTT setup...");
+	//Serial.println("MQTT setup...");
 	client.setServer(mqttIP, mqttPort);
 	client.setCallback(callback);
 	reconnect();
-	Serial.println("MQTT ready");
+	//Serial.println("MQTT ready");
 
-	pinMode(gndPin, OUTPUT); digitalWrite(gndPin, LOW);
+	pinMode(gndPin, OUTPUT); 
+	digitalWrite(gndPin, LOW);
   
-	Serial.println("MAX6675 setup...");
+	//Serial.println("MAX6675 setup...");
 	delay(500);
-	Serial.println("MAX6675 ready");
+	//Serial.println("MAX6675 ready");
 	
 	sensors.begin();
 	
-	pinMode(relay, OUTPUT);
-	
-	pumpMode = false; 
+	pumpMode = true; 
 	client.publish("home/centralHeating/pump/mode", "auto");
 }
 
