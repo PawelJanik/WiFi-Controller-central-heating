@@ -2388,6 +2388,15 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <sheets>
 <sheet>
 <plain>
+<text x="2.54" y="25.4" size="1.778" layer="91">black</text>
+<text x="2.54" y="27.94" size="1.778" layer="91">white</text>
+<text x="2.54" y="30.48" size="1.778" layer="91">gray</text>
+<text x="2.54" y="33.02" size="1.778" layer="91">purpure</text>
+<text x="2.54" y="35.56" size="1.778" layer="91">blue</text>
+<text x="2.54" y="38.1" size="1.778" layer="91">green</text>
+<text x="2.54" y="40.64" size="1.778" layer="91">yellow</text>
+<text x="2.54" y="43.18" size="1.778" layer="91">orange</text>
+<text x="2.54" y="45.72" size="1.778" layer="91">red</text>
 </plain>
 <instances>
 <instance part="POWER-LED" gate="G$1" x="40.64" y="58.42" rot="R90"/>
@@ -2396,7 +2405,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <instance part="PUMP-LED" gate="G$1" x="40.64" y="35.56" rot="R90"/>
 <instance part="SP1" gate="G$1" x="22.86" y="15.24" rot="R270"/>
 <instance part="S2" gate="BEF1" x="22.86" y="2.54" rot="R270"/>
-<instance part="JP1" gate="A" x="10.16" y="35.56"/>
+<instance part="JP1" gate="A" x="0" y="35.56"/>
 </instances>
 <busses>
 </busses>
@@ -2407,7 +2416,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <pinref part="POWER-LED" gate="G$1" pin="A"/>
 <wire x1="22.86" y1="58.42" x2="38.1" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="1"/>
-<wire x1="22.86" y1="45.72" x2="7.62" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="45.72" x2="-2.54" y2="45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -2416,7 +2425,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <wire x1="38.1" y1="50.8" x2="25.4" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="50.8" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="2"/>
-<wire x1="7.62" y1="43.18" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="43.18" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -2425,7 +2434,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <pinref part="MQTT-LED" gate="G$1" pin="A"/>
 <wire x1="27.94" y1="43.18" x2="38.1" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="3"/>
-<wire x1="27.94" y1="40.64" x2="7.62" y2="40.64" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="40.64" x2="-2.54" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -2434,7 +2443,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <wire x1="38.1" y1="35.56" x2="27.94" y2="35.56" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="35.56" x2="27.94" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="4"/>
-<wire x1="7.62" y1="38.1" x2="27.94" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="38.1" x2="27.94" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -2457,7 +2466,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <wire x1="45.72" y1="35.56" x2="48.26" y2="35.56" width="0.1524" layer="91"/>
 <junction x="48.26" y="35.56"/>
 <pinref part="JP1" gate="A" pin="5"/>
-<wire x1="22.86" y1="35.56" x2="7.62" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="35.56" x2="-2.54" y2="35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -2466,13 +2475,13 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <wire x1="22.86" y1="20.32" x2="20.32" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="20.32" y1="20.32" x2="20.32" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="6"/>
-<wire x1="20.32" y1="33.02" x2="7.62" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="20.32" y1="33.02" x2="-2.54" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="7"/>
-<wire x1="7.62" y1="30.48" x2="17.78" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="30.48" x2="17.78" y2="30.48" width="0.1524" layer="91"/>
 <pinref part="SP1" gate="G$1" pin="2"/>
 <wire x1="17.78" y1="30.48" x2="17.78" y2="10.16" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="10.16" x2="22.86" y2="10.16" width="0.1524" layer="91"/>
@@ -2481,7 +2490,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <net name="N$7" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="8"/>
-<wire x1="15.24" y1="27.94" x2="7.62" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="15.24" y1="27.94" x2="-2.54" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="S2" gate="BEF1" pin="P"/>
 <wire x1="15.24" y1="27.94" x2="15.24" y2="2.54" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="2.54" x2="17.78" y2="2.54" width="0.1524" layer="91"/>
@@ -2490,7 +2499,7 @@ Source: http://www2.produktinfo.conrad.com/datenblaetter/700000-724999/705152-da
 <net name="N$9" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="9"/>
-<wire x1="7.62" y1="25.4" x2="12.7" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="-2.54" y1="25.4" x2="12.7" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="12.7" y1="25.4" x2="12.7" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="12.7" y1="-2.54" x2="33.02" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="-2.54" x2="33.02" y2="0" width="0.1524" layer="91"/>
