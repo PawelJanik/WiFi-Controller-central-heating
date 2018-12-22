@@ -26,31 +26,31 @@ int gndPin = 5;
 
 int relay = 12;
 
+int buzzer = 13;
+
 bool pumpState = false; 
 bool pumpMode; //auto - true; manual - false
 
+bool alarm = true;
+
 MAX6675 thermocouple(thermoCLK, thermoCS, thermoDO);
 
+unsigned long timer1s = 0;
 unsigned long timer10s = 0;
 unsigned long timer1m = 0;
 
 void reconnect() 
 {
-	//Serial.print("Attempting MQTT connection...");
 	if (client.connect(controllerName, mqttLogin, mqttPasswd))
 	{
-		//Serial.println("connected");
-		
 		client.subscribe("home/centralHeating/pump");
 		client.subscribe("home/centralHeating/pump/mode");
+		client.subscribe("home/basement/alarm");
 		
 		digitalWrite(1, HIGH);
 	} 
 	else
 	{
-		//Serial.print("failed, rc=");
-		//Serial.print(client.state());
-		//Serial.println(" try again in 1 seconds");
 		delay(1000);
 		digitalWrite(1, LOW);
 	}
@@ -87,6 +87,20 @@ void callback(char * topic, byte* payload, unsigned int length)
 			pumpMode = false;
 		}
 	}
+	
+	if(strcmp(topic,"home/basement/alarm")==0)
+	{
+		if((char)payload[0] == '1') 
+		{
+			alarm = true;
+			client.publish("home/basement/alarm/state", "On", true);
+		}
+		else 
+		{
+			alarm = false;
+			client.publish("home/basement/alarm/state", "Off", true);
+		}
+	}
 }
 
 void setup() 
@@ -95,38 +109,25 @@ void setup()
 	pinMode(1, OUTPUT);	//mqtt
 	
 	pinMode(relay, OUTPUT);
-	
-	//Serial.begin(115200);
-	//Serial.println("Booting");
-	//Serial.println("Connecting to WiFi...");
+	pinMode(buzzer, OUTPUT);
 	
 	WIFIsetup();
 	
-	//Serial.println("WiFi Ready");
-	//Serial.print("IP address: ");
-	//Serial.println(WiFi.localIP());
-	
-	//Serial.println("OTA setup...");
 	OTAsetup();
-	//Serial.println("OTA ready");
 
-	//Serial.println("MQTT setup...");
 	client.setServer(mqttIP, mqttPort);
 	client.setCallback(callback);
 	reconnect();
-	//Serial.println("MQTT ready");
 
 	pinMode(gndPin, OUTPUT); 
 	digitalWrite(gndPin, LOW);
-  
-	//Serial.println("MAX6675 setup...");
+	Serial.println("MAX6675 test");
 	delay(500);
-	//Serial.println("MAX6675 ready");
 	
 	sensors.begin();
 	
 	pumpMode = true; 
-	client.publish("home/centralHeating/pump/mode", "auto");
+	client.publish("home/centralHeating/pump/mode", "auto", true);
 }
 
 void loop() 
@@ -140,22 +141,39 @@ void loop()
 
 	ArduinoOTA.handle();
 	
+	if((millis() - timer1s) > 1000)
+	{
+		timer1s = millis();
+		
+		if(alarm == true)
+		{
+			digitalWrite(buzzer, !digitalRead(buzzer));
+		}
+		else
+		{
+			digitalWrite(buzzer, LOW);
+		}
+	}
+	
 	if((millis() - timer10s) > 10000)
 	{
 		timer10s = millis();
 		client.publish("home/controllers/1/status", "ok");
-		Serial.println("OK");
 	}
 	
-	if((millis() - timer1m) > 2000)
+	if((millis() - timer1m) > 60000)
 	{
 		timer1m = millis();
 		
-		//client.publish("home/sensors/temperature/3", String(thermocouple.readCelsius()).c_str());
+		
+		Serial.print("C = "); 
+		Serial.println(thermocouple.readCelsius());
+		client.publish("home/sensors/temperature/3", String(thermocouple.readCelsius()).c_str());
 		
 		sensors.requestTemperatures();
 		client.publish("home/sensors/temperature/4", String(sensors.getTempCByIndex(0)).c_str());
 		client.publish("home/sensors/temperature/5", String(sensors.getTempCByIndex(1)).c_str());
+		client.publish("home/sensors/temperature/6", String(sensors.getTempCByIndex(2)).c_str());
 		
 		if(pumpMode == true)
 		{
@@ -164,14 +182,14 @@ void loop()
 				digitalWrite(relay, HIGH);
 			
 				pumpState = true; 
-				client.publish("home/centralHeating/pump/state", "On");
+				client.publish("home/centralHeating/pump/state", "On", true);
 			}
 			else if((pumpState == true) && (sensors.getTempCByIndex(0) < 35))
 			{
 				digitalWrite(relay, LOW);
 				
 				pumpState = false; 
-				client.publish("home/centralHeating/pump/state", "Off");
+				client.publish("home/centralHeating/pump/state", "Off", true);
 			}
 		}
 		else
@@ -181,11 +199,22 @@ void loop()
 				digitalWrite(relay, HIGH);
 			
 				pumpState = true; 
-				client.publish("home/centralHeating/pump/state", "On");
+				client.publish("home/centralHeating/pump/state", "On", true);
 				
 				pumpMode = true;
-				client.publish("home/centralHeating/pump/mode", "auto");
+				client.publish("home/centralHeating/pump/mode", "auto", true);
 			}
+		}
+		
+		if(sensors.getTempCByIndex(0) > 90)
+		{
+			alarm = true;
+			client.publish("home/basement/alarm/state", "On");
+		}
+		else
+		{
+			alarm = false;
+			client.publish("home/basement/alarm/state", "Off");
 		}
 	}
 }
