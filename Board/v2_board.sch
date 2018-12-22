@@ -16564,8 +16564,8 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <pin name="GPIO15" x="15.24" y="-7.62" visible="pin" length="middle" rot="R180"/>
 <pin name="GPIO2" x="15.24" y="-5.08" visible="pin" length="middle" rot="R180"/>
 <pin name="GPIO0" x="15.24" y="-2.54" visible="pin" length="middle" rot="R180"/>
-<pin name="GPIO5" x="15.24" y="0" visible="pin" length="middle" rot="R180"/>
-<pin name="GPIO4" x="15.24" y="2.54" visible="pin" length="middle" rot="R180"/>
+<pin name="GPIO4" x="15.24" y="0" visible="pin" length="middle" rot="R180"/>
+<pin name="GPIO5" x="15.24" y="2.54" visible="pin" length="middle" rot="R180"/>
 <pin name="RX" x="15.24" y="5.08" visible="pin" length="middle" rot="R180"/>
 <pin name="TX" x="15.24" y="7.62" visible="pin" length="middle" rot="R180"/>
 <text x="-12.7" y="10.16" size="1.778" layer="95">&gt;Name</text>
@@ -16590,8 +16590,8 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <connect gate="G$1" pin="GPIO15" pad="GPIO15"/>
 <connect gate="G$1" pin="GPIO16" pad="GPIO16"/>
 <connect gate="G$1" pin="GPIO2" pad="GPIO2"/>
-<connect gate="G$1" pin="GPIO4" pad="GPIO4"/>
-<connect gate="G$1" pin="GPIO5" pad="GPIO5"/>
+<connect gate="G$1" pin="GPIO4" pad="GPIO5"/>
+<connect gate="G$1" pin="GPIO5" pad="GPIO4"/>
 <connect gate="G$1" pin="RESET" pad="RESET"/>
 <connect gate="G$1" pin="RX" pad="RX"/>
 <connect gate="G$1" pin="TX" pad="TX"/>
@@ -17337,7 +17337,9 @@ Based on the previous libraries:
 <part name="R10" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R1206" package3d_urn="urn:adsk.eagle:package:23540/2" value="1k"/>
 <part name="R14" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R1206" package3d_urn="urn:adsk.eagle:package:23540/2" value="1k"/>
 <part name="BUZZER" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X2" device="" package3d_urn="urn:adsk.eagle:package:22435/2"/>
-<part name="U2" library="esp826612q" deviceset="ESP12" device=""/>
+<part name="U2" library="esp826612q" deviceset="ESP12" device="">
+<attribute name="SPICEPREFIX" value="X"/>
+</part>
 <part name="12V_IN" library="con-phoenix-508" library_urn="urn:adsk.eagle:library:176" deviceset="MSTBA2" device="" package3d_urn="urn:adsk.eagle:package:9615/1"/>
 <part name="+3V8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -17711,26 +17713,26 @@ Based on the previous libraries:
 </net>
 <net name="GPIO4" class="0">
 <segment>
-<wire x1="101.6" y1="88.9" x2="106.68" y2="88.9" width="0.1524" layer="91"/>
-<label x="99.06" y="88.9" size="1.778" layer="95"/>
+<wire x1="157.48" y1="71.12" x2="147.32" y2="71.12" width="0.1524" layer="91"/>
+<label x="147.32" y="71.12" size="1.778" layer="95"/>
+<pinref part="X2" gate="-10" pin="1"/>
+</segment>
+<segment>
+<wire x1="101.6" y1="86.36" x2="106.68" y2="86.36" width="0.1524" layer="91"/>
+<label x="99.06" y="86.36" size="1.778" layer="95"/>
 <pinref part="U2" gate="G$1" pin="GPIO4"/>
 </segment>
+</net>
+<net name="GPIO5" class="0">
 <segment>
 <wire x1="157.48" y1="81.28" x2="147.32" y2="81.28" width="0.1524" layer="91"/>
 <label x="147.32" y="81.28" size="1.778" layer="95"/>
 <pinref part="X2" gate="-11" pin="1"/>
 </segment>
-</net>
-<net name="GPIO5" class="0">
 <segment>
-<wire x1="101.6" y1="86.36" x2="106.68" y2="86.36" width="0.1524" layer="91"/>
-<label x="99.06" y="86.36" size="1.778" layer="95"/>
+<wire x1="101.6" y1="88.9" x2="106.68" y2="88.9" width="0.1524" layer="91"/>
+<label x="99.06" y="88.9" size="1.778" layer="95"/>
 <pinref part="U2" gate="G$1" pin="GPIO5"/>
-</segment>
-<segment>
-<wire x1="157.48" y1="71.12" x2="147.32" y2="71.12" width="0.1524" layer="91"/>
-<label x="147.32" y="71.12" size="1.778" layer="95"/>
-<pinref part="X2" gate="-10" pin="1"/>
 </segment>
 </net>
 <net name="GPIO0" class="0">

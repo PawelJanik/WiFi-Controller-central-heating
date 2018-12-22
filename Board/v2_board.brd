@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -2026,7 +2026,9 @@ design rules under a new name.</description>
 <attribute name="SPICEPREFIX" value="R" x="30.48" y="55.88" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="BUZZER" library="pinhead" library_urn="urn:adsk.eagle:library:325" package="1X02" package3d_urn="urn:adsk.eagle:package:22435/2" value="" x="21.59" y="44.45"/>
-<element name="U2" library="esp826612q" package="ESP12" value="ESP12" x="49.53" y="59.69"/>
+<element name="U2" library="esp826612q" package="ESP12" value="ESP12" x="49.53" y="59.69">
+<attribute name="SPICEPREFIX" value="X" x="49.53" y="59.69" size="1.778" layer="27" display="off"/>
+</element>
 <element name="12V_IN" library="con-phoenix-508" library_urn="urn:adsk.eagle:library:176" package="MSTBA2" package3d_urn="urn:adsk.eagle:package:9615/1" value="MSTBA2" x="10.16" y="26.67">
 <attribute name="MF" value="FARNELL" x="10.16" y="26.67" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="1757242" x="10.16" y="26.67" size="1.778" layer="27" display="off"/>
@@ -2197,20 +2199,19 @@ design rules under a new name.</description>
 <wire x1="59.528" y1="63.49" x2="59.538" y2="63.5" width="0.8128" layer="16"/>
 </signal>
 <signal name="GPIO4">
-<contactref element="U2" pad="GPIO4"/>
-<contactref element="X2" pad="11"/>
-<wire x1="56.43" y1="61.49" x2="56.6068" y2="61.3132" width="0.8128" layer="16"/>
-<wire x1="56.6068" y1="61.3132" x2="62.42365" y2="61.3132" width="0.8128" layer="16"/>
-<wire x1="62.42365" y1="61.3132" x2="71.12" y2="52.61685" width="0.8128" layer="16"/>
-<wire x1="71.12" y1="52.61685" x2="71.12" y2="31.75" width="0.8128" layer="16"/>
+<contactref element="X2" pad="10"/>
+<wire x1="59.89" y1="59.49" x2="66.04" y2="53.34" width="0.8128" layer="16"/>
+<wire x1="66.04" y1="53.34" x2="66.04" y2="31.75" width="0.8128" layer="16"/>
+<contactref element="U2" pad="GPIO5"/>
+<wire x1="56.43" y1="59.49" x2="59.89" y2="59.49" width="0.8128" layer="16"/>
 </signal>
 <signal name="GPIO5">
-<contactref element="U2" pad="GPIO5"/>
-<contactref element="X2" pad="10"/>
-<wire x1="56.43" y1="59.49" x2="56.6068" y2="59.3132" width="0.8128" layer="16"/>
-<wire x1="56.6068" y1="59.3132" x2="60.8547" y2="59.3132" width="0.8128" layer="16"/>
-<wire x1="60.8547" y1="59.3132" x2="66.04" y2="54.1279" width="0.8128" layer="16"/>
-<wire x1="66.04" y1="54.1279" x2="66.04" y2="31.75" width="0.8128" layer="16"/>
+<contactref element="X2" pad="11"/>
+<wire x1="71.12" y1="31.75" x2="71.12" y2="50.8" width="0.8128" layer="16"/>
+<wire x1="56.6068" y1="61.3132" x2="60.6068" y2="61.3132" width="0.8128" layer="16"/>
+<wire x1="71.12" y1="50.8" x2="60.6068" y2="61.3132" width="0.8128" layer="16"/>
+<contactref element="U2" pad="GPIO4"/>
+<wire x1="56.43" y1="61.49" x2="56.6068" y2="61.3132" width="0.8128" layer="16"/>
 </signal>
 <signal name="GPIO0">
 <contactref element="R1" pad="2"/>
