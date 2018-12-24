@@ -158,7 +158,7 @@ void loop()
 	if((millis() - timer10s) > 10000)
 	{
 		timer10s = millis();
-		client.publish("home/controllers/1/status", "ok");
+		client.publish("home/controllers/1/condition", "ok");
 	}
 	
 	if((millis() - timer1m) > 60000)
