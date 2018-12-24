@@ -31,7 +31,7 @@ int buzzer = 13;
 bool pumpState = false; 
 bool pumpMode; //auto - true; manual - false
 
-bool alarm = true;
+bool alarm = false;
 
 MAX6675 thermocouple(thermoCLK, thermoCS, thermoDO);
 
@@ -41,18 +41,17 @@ unsigned long timer1m = 0;
 
 void reconnect() 
 {
+	
+	digitalWrite(1, LOW);
+	
 	if (client.connect(controllerName, mqttLogin, mqttPasswd))
 	{
 		client.subscribe("home/centralHeating/pump");
 		client.subscribe("home/centralHeating/pump/mode");
 		client.subscribe("home/basement/alarm");
+		client.subscribe("home/controllers/1/restart");
 		
 		digitalWrite(1, HIGH);
-	} 
-	else
-	{
-		delay(1000);
-		digitalWrite(1, LOW);
 	}
 }
 
@@ -101,6 +100,16 @@ void callback(char * topic, byte* payload, unsigned int length)
 			client.publish("home/basement/alarm/state", "Off", true);
 		}
 	}
+	
+	if(strcmp(topic,"home/controllers/1/restart")==0)
+	{
+		if((char)payload[0] == 'r') 
+		{
+			digitalWrite(1, LOW);
+			digitalWrite(3, LOW);
+			ESP.restart();
+		}
+	}
 }
 
 void setup() 
@@ -136,8 +145,10 @@ void loop()
 	{
 		reconnect();
 	}
-	
-	client.loop();
+	else
+	{
+		client.loop();
+	}
 
 	ArduinoOTA.handle();
 	
