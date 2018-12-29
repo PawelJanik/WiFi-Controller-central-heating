@@ -1,1 +1,1 @@
-WiFi Controller (stove)
+WiFi controller (central heating)
