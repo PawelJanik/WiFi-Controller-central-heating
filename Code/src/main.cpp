@@ -12,7 +12,7 @@
 #include <max6675.h>
 
 #include "setup.h"
- 
+
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -44,7 +44,8 @@ void reconnect()
 
 	digitalWrite(1, LOW);
 
-	if (client.connect(controllerName, mqttLogin, mqttPasswd))
+	//if (client.connect(controllerName, mqttLogin, mqttPasswd))
+	if (client.connect(controllerName))
 	{
 		client.subscribe("home/centralHeating/pump");
 		client.subscribe("home/centralHeating/pump/mode");
@@ -105,6 +106,9 @@ void callback(char * topic, byte* payload, unsigned int length)
 	{
 		if((char)payload[0] == 'r')
 		{
+			client.publish("home/controllers/1/condition", "reset");
+			delay(500);
+
 			digitalWrite(1, LOW);
 			digitalWrite(3, LOW);
 			ESP.restart();
@@ -137,6 +141,8 @@ void setup()
 
 	pumpMode = true;
 	client.publish("home/centralHeating/pump/mode", "auto", true);
+
+	client.publish("home/controllers/1/condition", "ok");
 }
 
 void loop()
@@ -176,9 +182,6 @@ void loop()
 	{
 		timer1m = millis();
 
-
-		Serial.print("C = ");
-		Serial.println(thermocouple.readCelsius());
 		client.publish("home/sensors/temperature/3", String(thermocouple.readCelsius()).c_str());
 
 		sensors.requestTemperatures();
