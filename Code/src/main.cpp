@@ -225,7 +225,7 @@ void loop()
 			alarm = true;
 			client.publish("home/basement/alarm/state", "On");
 		}
-		else
+		else if(alarm == true)
 		{
 			alarm = false;
 			client.publish("home/basement/alarm/state", "Off");
